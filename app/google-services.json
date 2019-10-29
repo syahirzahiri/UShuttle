@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "866425077922",
+    "firebase_url": "https://ushuttle-9cbcf.firebaseio.com",
+    "project_id": "ushuttle-9cbcf",
+    "storage_bucket": "ushuttle-9cbcf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866425077922:android:954a28ccb4a70f1d2997fb",
+        "android_client_info": {
+          "package_name": "com.molly.bustracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866425077922-tb9v8dui5urchh788rut1ur3ffrp8j98.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwo5Fs2CbvC4FHKVIwtFwg7LQXO4aFIEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866425077922-tb9v8dui5urchh788rut1ur3ffrp8j98.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

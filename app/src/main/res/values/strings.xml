@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">UShuttle</string>
+
+    <string name="google_maps_api_key">AIzaSyA1j3pr_sW4FaChD8yOHsXgu7blbkvWDvg</string>
+
+    <!-- Strings related to login -->
+    <string name="action_sign_out">Sign out</string>
+
+    <!-- Intent extras -->
+    <string name="intent_chatroom">intent_chatroom</string>
+    <string name="intent_user_list">intent_user_list</string>
+    <string name="intent_user_locations">intent_user_locations</string>
+    <string name="intent_location">intent_location</string>
+
+    <!-- Firestore Syahir Strings -->
+    <string name="collection_passengers">Passengers</string>
+    <string name="collection_passenger_locations">Passenger Locations</string>
+    <string name="collection_drivers">Drivers</string>
+    <string name="collection_driver_locations">Driver Locations</string>
+    <string name="collection_place_locations">Place Locations</string>
+    <string name="collection_driver_online">Driver Online</string>
+    <string name="collection_user">User</string>
+    <string name="collection_user_locations">User Locations</string>
+    <string name="collection_user_online">User Online</string>
+    <string name="collection_job_ready">Job Ready</string>
+    <string name="collection_ride_available">Ride Available</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
