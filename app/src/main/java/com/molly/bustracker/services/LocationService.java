@@ -106,10 +106,10 @@ public class LocationService extends Service {
                         Location location = locationResult.getLastLocation();
 
                         if (location != null) {
-                            User user = ((UserClient)(getApplicationContext())).getUser();
+                            User user = ((UserClient) (getApplicationContext())).getUser();
                             GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-                            Locations locations = new Locations(user.getFirst_name(),user.getUser_id(),geoPoint,user.getStatus(),null);
-                          //  UserLocation userLocation = new UserLocation(user, geoPoint, null);
+                            Locations locations = new Locations(user.getFirst_name(), user.getUser_id(), geoPoint, user.getStatus(), null);
+                            //  UserLocation userLocation = new UserLocation(user, geoPoint, null);
                             saveUserLocation(locations);
                         }
                     }
@@ -117,9 +117,9 @@ public class LocationService extends Service {
                 Looper.myLooper()); // Looper.myLooper tells this to repeat forever until thread is destroyed
     }
 
-    private void saveUserLocation(final Locations locations){
+    private void saveUserLocation(final Locations locations) {
 
-        try{
+        try {
             DocumentReference locationRef = FirebaseFirestore.getInstance()
                     .collection(getString(R.string.collection_user_locations))
                     .document(FirebaseAuth.getInstance().getUid());
@@ -127,22 +127,20 @@ public class LocationService extends Service {
             locationRef.set(locations).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Log.d(TAG, "onComplete: \ninserted user location into database." +
                                 "\n latitude: " + locations.getGeo_point().getLatitude() +
                                 "\n longitude: " + locations.getGeo_point().getLongitude());
                     }
                 }
             });
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             Log.e(TAG, "saveUserLocation: User instance is null, stopping location service.");
-            Log.e(TAG, "saveUserLocation: NullPointerException: "  + e.getMessage() );
+            Log.e(TAG, "saveUserLocation: NullPointerException: " + e.getMessage());
             stopSelf();
         }
 
     }
-
-
 
 
 }

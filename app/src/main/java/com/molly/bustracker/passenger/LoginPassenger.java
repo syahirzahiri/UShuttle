@@ -121,7 +121,6 @@ public class LoginPassenger extends AppCompatActivity {
                                 .document(user.getUid());
 
 
-
                         userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

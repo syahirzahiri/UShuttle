@@ -218,7 +218,7 @@ public class RunMap extends Fragment {
 
         MainMapFragment fragment = MainMapFragment.newInstance();
         Bundle bundle = new Bundle();
-    //    bundle.putParcelableArrayList(getString(R.string.intent_user_list), mUserList);
+        //    bundle.putParcelableArrayList(getString(R.string.intent_user_list), mUserList);
         bundle.putParcelableArrayList(getString(R.string.intent_user_locations), mLocations);
         fragment.setArguments(bundle);
 

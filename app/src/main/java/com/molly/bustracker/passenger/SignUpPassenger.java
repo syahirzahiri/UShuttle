@@ -26,7 +26,7 @@ import com.molly.bustracker.model.User;
 import static android.text.TextUtils.isEmpty;
 import static com.molly.bustracker.util.Check.doStringsMatch;
 
-public class SignUpPassenger extends AppCompatActivity implements View.OnClickListener{
+public class SignUpPassenger extends AppCompatActivity implements View.OnClickListener {
 
     //widgets
     private EditText mEmail, mPassword, mConfirmPassword, mPhoneNo, mMatricID, mFirstName, mLastName;
@@ -62,10 +62,11 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
 
     /**
      * Register a new email and password to Firebase Authentication
+     *
      * @param email
      * @param password
      */
-    public void registerNewEmail(final String email, String password, final String phoneNo, final String matricID, final String firstName, final String lastName){
+    public void registerNewEmail(final String email, String password, final String phoneNo, final String matricID, final String firstName, final String lastName) {
 
         showDialog();
 
@@ -75,7 +76,7 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
 
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             Log.d(TAG, "onComplete: AuthState: " + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
                             //insert some default data
@@ -92,7 +93,6 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
                             user.setAvatar(Integer.toString(avatar));
 
 
-
                             FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
                                     .build();
                             mDb.setFirestoreSettings(settings);
@@ -106,17 +106,16 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
                                 public void onComplete(@NonNull Task<Void> task) {
                                     hideDialog();
 
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
                                         redirectLoginScreen();
-                                    }else{
+                                    } else {
                                         View parentLayout = findViewById(android.R.id.content);
                                         Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
                                     }
                                 }
                             });
 
-                        }
-                        else {
+                        } else {
                             View parentLayout = findViewById(android.R.id.content);
                             Snackbar.make(parentLayout, "Something went wrong.", Snackbar.LENGTH_SHORT).show();
                             hideDialog();
@@ -130,7 +129,7 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
     /**
      * Redirects the user to the login screen
      */
-    private void redirectLoginScreen(){
+    private void redirectLoginScreen() {
         Log.d(TAG, "redirectLoginScreen: redirecting to login screen.");
 
         Intent intent = new Intent(SignUpPassenger.this, LoginPassenger.class);
@@ -139,42 +138,42 @@ public class SignUpPassenger extends AppCompatActivity implements View.OnClickLi
     }
 
 
-    private void showDialog(){
+    private void showDialog() {
         mProgressBar.setVisibility(View.VISIBLE);
 
     }
 
-    private void hideDialog(){
-        if(mProgressBar.getVisibility() == View.VISIBLE){
+    private void hideDialog() {
+        if (mProgressBar.getVisibility() == View.VISIBLE) {
             mProgressBar.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void hideSoftKeyboard(){
+    private void hideSoftKeyboard() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_register_drv:{
+        switch (view.getId()) {
+            case R.id.btn_register_drv: {
                 Log.d(TAG, "onClick: attempting to register.");
 
                 //check for null valued EditText fields
-                if(!isEmpty(mEmail.getText().toString())
+                if (!isEmpty(mEmail.getText().toString())
                         && !isEmpty(mPassword.getText().toString())
-                        && !isEmpty(mConfirmPassword.getText().toString())){
+                        && !isEmpty(mConfirmPassword.getText().toString())) {
 
                     //check if passwords match
-                    if(doStringsMatch(mPassword.getText().toString(), mConfirmPassword.getText().toString())){
+                    if (doStringsMatch(mPassword.getText().toString(), mConfirmPassword.getText().toString())) {
 
                         //Initiate registration task
                         registerNewEmail(mEmail.getText().toString(), mPassword.getText().toString(), mPhoneNo.getText().toString(), mMatricID.getText().toString(), mFirstName.getText().toString(), mLastName.getText().toString());
-                    }else{
+                    } else {
                         Toast.makeText(SignUpPassenger.this, "Passwords do not Match", Toast.LENGTH_SHORT).show();
                     }
 
-                }else{
+                } else {
                     Toast.makeText(SignUpPassenger.this, "You must fill out all the fields", Toast.LENGTH_SHORT).show();
                 }
                 break;

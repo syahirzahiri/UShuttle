@@ -424,7 +424,7 @@ public class MainMapFragment extends Fragment implements
             }
 
             if (mLocations.size() != 0) {
-                    mDriverLocations.clear();
+                mDriverLocations.clear();
                 for (Locations locations : mLocations) {
                     try {
                         String snippet = "";
