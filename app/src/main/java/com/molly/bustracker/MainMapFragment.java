@@ -12,6 +12,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Debug;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -38,9 +39,15 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -58,7 +65,9 @@ import com.molly.bustracker.util.MyClusterManagerRenderer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainMapFragment extends Fragment implements
@@ -318,7 +327,45 @@ public class MainMapFragment extends Fragment implements
         mHandler.removeCallbacks(mRunnable);
     }
 
+    private void UpdateBus1location() {
+
+        DatabaseReference refInit = FirebaseDatabase.getInstance().getReference();
+        refInit.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String lat = dataSnapshot.child("Latitude").getValue().toString();
+                String lng = dataSnapshot.child("Longitude").getValue().toString();
+                LatLng latLng = new LatLng(Double.parseDouble(lat), Double.parseDouble(lng));
+                saveDriverLocation(latLng);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void saveDriverLocation(LatLng latLng) {
+
+        Locations bus1Locations = new Locations("bus1","bus1",new GeoPoint(latLng.latitude,latLng.longitude),"Driver",null);
+
+        DocumentReference locationRef = mDb.
+                collection(getString(R.string.collection_driver_locations))
+                .document("bus1");
+
+        locationRef.set(bus1Locations).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+//                Log.d(TAG, "Updated bus 1 locations");
+            }
+        });
+    }
+
+
     private void retrieveDriverLocations() {
+
+        UpdateBus1location();
+
 
         try {
             for (final ClusterMarker clusterMarker : mClusterMarkers) {
